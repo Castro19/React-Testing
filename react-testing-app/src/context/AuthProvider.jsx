@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 // Create the AuthContext
 const AuthContext = createContext();
 
-/*
+/**
  * AuthProvider Component: Manages authentication state across the application
- * Provides user data and logout functionality to child components
+ * Provides user data, login, and logout functionality to child components
  */
 export const AuthProvider = ({ children }) => {
   // Store the authenticated user data
@@ -14,21 +14,27 @@ export const AuthProvider = ({ children }) => {
 
   // On component mount, check if a user is stored in localStorage
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("student");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
   }, []);
 
+  // Handles user login by saving user info in localStorage and state
+  const login = (userData) => {
+    localStorage.setItem("student", JSON.stringify(userData));
+    setUser(userData); // Update state immediately
+  };
+
   // Handles user logout by clearing localStorage and resetting user state
   const logout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem("student");
     setUser(null);
   };
 
   // Provide auth context values to child components
   return (
-    <AuthContext.Provider value={{ user, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,11 +1,20 @@
-export const fakeAuth = (email, password) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      if (email === "test@example.com" && password === "password123") {
-        resolve({ success: true, user: { email } });
-      } else {
-        resolve({ success: false, error: "Invalid credentials" });
+export const fakeAuth = async (email, password) => {
+  const response = await fetch("/fakeDB.json"); // Fetch the JSON file
+  const data = await response.json();
+
+  const user = data.users.find(
+    (u) => u.email === email && u.password === password
+  );
+
+  return user
+    ? {
+        success: true,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          role: user.role,
+        },
       }
-    }, 500); // Simulate network delay
-  });
+    : { success: false, error: "Invalid credentials" };
 };

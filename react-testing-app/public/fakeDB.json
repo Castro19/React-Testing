@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@calpoly.edu",
+      "password": "@admin",
+      "name": "Cal Poly Admin",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "cristian@calpoly.edu",
+      "password": "castro",
+      "name": "Cristian",
+      "role": "student"
+    }
+  ]
+}
