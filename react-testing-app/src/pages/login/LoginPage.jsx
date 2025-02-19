@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fakeAuth } from "../../auth/auth";
+import { useAuth } from "../../context/AuthContext";
 import styles from "./LoginPage.module.css";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+
+  const { login } = useAuth();
 
   /*
    * handleSubmit Function: Handles the login form submission
@@ -19,16 +22,17 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(""); // Reset error on new attempt
-
-    // Simulate network request
-    const response = await fakeAuth(email, password);
-    if (response.success) {
-      localStorage.setItem("student", JSON.stringify(response.user)); // Simulated session
-      console.log("User logged in:", response.user);
-      navigate("/dashboard");
-    } else {
-      console.log(response);
-      setError(response.error);
+    try {
+      // Use the login function from the AuthContext
+      const response = await login(email, password);
+      if (response.success) {
+        navigate("/dashboard");
+      } else {
+        setError(response.error);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      setError("Login failed");
     }
   };
 
