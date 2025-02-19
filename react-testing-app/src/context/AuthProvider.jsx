@@ -4,35 +4,32 @@ import PropTypes from "prop-types";
 // Create the AuthContext
 const AuthContext = createContext();
 
-/**
+/*
  * AuthProvider Component: Manages authentication state across the application
- * Provides user data, login, and logout functionality to child components
  */
 export const AuthProvider = ({ children }) => {
-  // Store the authenticated user data
-  const [user, setUser] = useState(null);
+  // ✅ Set `undefined` as the initial state instead of `null` to track loading state
+  const [user, setUser] = useState(undefined);
 
-  // On component mount, check if a user is stored in localStorage
   useEffect(() => {
-    const storedUser = localStorage.getItem("student");
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else {
+      setUser(null); // Only explicitly set to null if no user exists
     }
   }, []);
 
-  // Handles user login by saving user info in localStorage and state
   const login = (userData) => {
-    localStorage.setItem("student", JSON.stringify(userData));
-    setUser(userData); // Update state immediately
+    localStorage.setItem("user", JSON.stringify(userData));
+    setUser(userData);
   };
 
-  // Handles user logout by clearing localStorage and resetting user state
   const logout = () => {
-    localStorage.removeItem("student");
+    localStorage.removeItem("user");
     setUser(null);
   };
 
-  // Provide auth context values to child components
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}
@@ -40,11 +37,11 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Prop Types for the AuthProvider component
+// Prop Types
 AuthProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-// Custom hook to easily access auth context in any component
+// Custom hook to access auth context
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

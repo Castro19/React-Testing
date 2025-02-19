@@ -6,7 +6,7 @@ import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/login/LoginPage";
 import Dashboard from "./pages/dashboard/Dashboard";
 // For Protected Routes
-import ProtectedRoute from "./security/ProtectedRoute";
+// import ProtectedRoute from "./security/ProtectedRoute";
 
 function App() {
   return (
@@ -15,14 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
     </AuthProvider>

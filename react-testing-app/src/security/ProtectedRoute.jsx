@@ -4,12 +4,17 @@ import PropTypes from "prop-types";
 
 /*
  * ProtectedRoute Component: Ensures only authenticated users can access the route
- * If user is not authenticated, redirects to the login page
+ * If authentication is still loading, don't redirect immediately
  */
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
-  // If user is authenticated, render the children
-  // Otherwise, redirect to the login page
+
+  // ✅ Add a "loading" state: If user is `null` but still checking, don't redirect
+  if (user === undefined) {
+    return null; // OR return a loading spinner (optional)
+  }
+
+  // ✅ If user is logged in, render children
   return user ? children : <Navigate to="/login" />;
 };
 
