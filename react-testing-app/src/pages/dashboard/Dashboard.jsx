@@ -1,5 +1,8 @@
 import { useAuth } from "../../context/AuthContext";
 
+/*
+ * Dashboard Component: Displays a welcome message and a logout button
+ */
 const Dashboard = () => {
   const { user, logout } = useAuth();
 

@@ -3,6 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./LoginPage.module.css";
 
+/*
+ * LoginPage Component: Displays a login form
+ * Allows users to login with email and password
+ * Uses the login function from the AuthContext
+ * Displays an error message if the login fails
+ * Navigates to the dashboard page if the login is successful
+ */
 const LoginPage = () => {
   const navigate = useNavigate();
 

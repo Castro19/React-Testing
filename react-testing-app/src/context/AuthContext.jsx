@@ -1,14 +1,26 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { fakeAuth } from "../auth/auth";
-// Create context
+
+/*
+ * Create context
+ */
 const AuthContext = createContext();
 
+/*
+ * AuthProvider Component: Provides authentication context to the application
+ * Manages user authentication state and actions
+ */
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(undefined);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
-  // Initial auth check
+  /*
+   * Initial auth check
+   * Checks if a user is already logged in
+   * If so, sets the user state to the stored user
+   * If not, sets the user state to null
+   */
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedStudent = localStorage.getItem("student");
@@ -25,7 +37,11 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // Cross-tab sync
+  /*
+   * Cross-tab sync
+   * Syncs the user state across different tabs
+   * If a user is logged in on one tab, the user state will be updated on all tabs
+   */
   useEffect(() => {
     const handleStorageChange = (e) => {
       if (e.key === "user") {
@@ -37,7 +53,12 @@ export const AuthProvider = ({ children }) => {
     return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // Auth actions
+  /*
+   * Auth actions
+   * Logs in a user
+   * Sets the user state to the user returned by the fakeAuth function
+   * Stores the user in localStorage
+   */
   const login = async (email, password) => {
     setIsLoggingIn(true);
     try {
@@ -52,6 +73,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  /*
+   * Logs out a user
+   * Removes the user from localStorage
+   * Sets the user state to null
+   */
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
