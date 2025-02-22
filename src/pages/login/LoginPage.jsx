@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./LoginPage.module.css";
@@ -17,7 +17,18 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+
+  /*
+   * If the user is authenticated, navigate to the dashboard page
+   * This is a security measure to prevent users from accessing
+   * the login page if they are already logged in
+   */
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   /*
    * handleSubmit Function: Handles the login form submission
