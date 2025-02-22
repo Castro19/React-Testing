@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     isLoggingIn,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user, // Converts 'user' to a boolean: true if 'user' is truthy, false if falsy
     login,
     logout,
   };
