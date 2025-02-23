@@ -62,12 +62,19 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     setIsLoggingIn(true);
     try {
+      /*
+       * Simulates a network request
+       * This is where you would typically make a request to your backend for authentication
+       */
       const response = await fakeAuth(email, password);
       if (response.success) {
         localStorage.setItem("user", JSON.stringify(response.user));
         setUser(response.user);
       }
       return response;
+    } catch (error) {
+      console.error("Login failed:", error);
+      throw error;
     } finally {
       setIsLoggingIn(false);
     }

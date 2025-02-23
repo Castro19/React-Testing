@@ -7,9 +7,6 @@ const config = {
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
   },
-  transform: {
-    "^.+\\.(js|jsx)$": "babel-jest",
-  },
   testMatch: ["**/__tests__/**/*.test.[jt]s?(x)"],
   // Keep your existing config below
   clearMocks: true,
@@ -17,3 +14,5 @@ const config = {
   coverageDirectory: "coverage",
   coverageProvider: "v8",
 };
+
+export default config;
