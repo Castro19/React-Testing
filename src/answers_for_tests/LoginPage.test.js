@@ -38,8 +38,9 @@ describe("LoginPage Component", () => {
     expect(passwordInput).toBeInTheDocument();
     expect(loginButton).toBeInTheDocument();
   });
+
   test("shows an error message when login fails", async () => {
-    // Arrange:
+    // ✅ Arrange:
     mockLogin.mockResolvedValueOnce({
       success: false,
       error: "Invalid credentials",
@@ -51,7 +52,7 @@ describe("LoginPage Component", () => {
       </MemoryRouter>
     );
 
-    // Act:
+    // ✅ Act:
     const emailInput = screen.getByPlaceholderText(/email/i);
     const passwordInput = screen.getByPlaceholderText(/password/i);
     const loginButton = screen.getByRole("button", { name: /login/i });
@@ -65,5 +66,30 @@ describe("LoginPage Component", () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  test("navigates to the dashboard on successful login", async () => {});
+  test("navigates to the dashboard on successful login", async () => {
+    // Arrange:
+    mockLogin.mockResolvedValueOnce({ success: true }); // Simulate successful login
+
+    render(
+      <MemoryRouter>
+        <LoginPage />
+      </MemoryRouter>
+    );
+
+    // Act:
+    const emailInput = screen.getByPlaceholderText(/email/i);
+    const passwordInput = screen.getByPlaceholderText(/password/i);
+    const loginButton = screen.getByRole("button", { name: /login/i });
+
+    await userEvent.type(emailInput, "test@example.com");
+    await userEvent.type(passwordInput, "correctpassword");
+    await userEvent.click(loginButton);
+
+    // Assert:
+    expect(mockLogin).toHaveBeenCalledWith(
+      "test@example.com",
+      "correctpassword"
+    );
+    expect(mockedUsedNavigate).toHaveBeenCalledWith("/dashboard");
+  });
 });
