@@ -65,5 +65,7 @@ describe("LoginPage Component", () => {
     expect(errorMessage).toBeInTheDocument();
   });
 
-  test("navigates to the dashboard on successful login", async () => {});
+  test("navigates to the dashboard on successful login", async () => {
+    // TODO: Implement this test
+  });
 });

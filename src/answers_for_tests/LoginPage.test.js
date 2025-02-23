@@ -38,9 +38,8 @@ describe("LoginPage Component", () => {
     expect(passwordInput).toBeInTheDocument();
     expect(loginButton).toBeInTheDocument();
   });
-
   test("shows an error message when login fails", async () => {
-    // ✅ Arrange:
+    // Arrange:
     mockLogin.mockResolvedValueOnce({
       success: false,
       error: "Invalid credentials",
@@ -52,7 +51,7 @@ describe("LoginPage Component", () => {
       </MemoryRouter>
     );
 
-    // ✅ Act:
+    // Act:
     const emailInput = screen.getByPlaceholderText(/email/i);
     const passwordInput = screen.getByPlaceholderText(/password/i);
     const loginButton = screen.getByRole("button", { name: /login/i });
