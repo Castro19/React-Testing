@@ -20,7 +20,7 @@ const ProtectedRoute = ({ children }) => {
    * If the user is authenticated, render the children
    * Otherwise, navigate to the login page
    */
-  return user ? children : <Navigate to="/login" replace />;
+  return user ? children : <Navigate to="/login" replace={true} />;
 };
 
 ProtectedRoute.propTypes = {

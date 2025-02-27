@@ -13,7 +13,7 @@ git clone https://github.com/Castro19/React-Testing.git
 2. Cd into the project directory
 
 ```bash
-cd reacting-testing-app
+cd React-Testing/
 ```
 
 3. Run `npm install` to install the dependencies

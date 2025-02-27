@@ -20,15 +20,17 @@ describe("ProtectedRoute Component", () => {
     jest.clearAllMocks(); // Reset mocks before each test
   });
 
-  // Test 1: RTL Approach - Render, Query, Interact, Assert
-  test("renders protected content if user is authenticated", () => {
-    // Arrange: Mock useAuth to return an authenticated user
+  // AAA Approach - Arrange, Act, Assert
+
+  // Test 1: Shows "Loading..." when authentication status is unknown
+  test("shows loading state when authentication is still being checked", () => {
+    // Arrange: Mock useAuth with an undefined user (still loading)
     useAuth.mockReturnValue({
-      user: { name: "Test User" }, // Simulate logged-in user
-      isLoggingIn: false,
+      user: undefined,
+      isLoggingIn: true,
     });
 
-    // Render ProtectedRoute with a test element inside
+    // Act: Render the ProtectedRoute component
     render(
       <MemoryRouter>
         <ProtectedRoute>
@@ -37,14 +39,12 @@ describe("ProtectedRoute Component", () => {
       </MemoryRouter>
     );
 
-    // Query: Find the protected content
-    const protectedContent = screen.getByText(/protected content/i);
-
-    // Assert: The protected content should be visible
-    expect(protectedContent).toBeInTheDocument();
+    // Assert: Check if the loading message is displayed
+    const loadingContent = screen.getByText(/loading.../i);
+    expect(loadingContent).toBeInTheDocument();
   });
 
-  // Test 2: AAA Approach - Arrange, Act, Assert
+  // Test 2
   test("redirects to login if user is not authenticated", () => {
     // Arrange: Mock useAuth to return no user
     useAuth.mockReturnValue({
@@ -64,13 +64,12 @@ describe("ProtectedRoute Component", () => {
     // Assert: Ensure Navigate was called with the correct redirection
     expect(Navigate).toHaveBeenCalledWith({ to: "/login", replace: true }, {});
   });
-
-  // Test 3: Shows "Loading..." when authentication status is unknown
-  test("shows loading state when authentication is still being checked", () => {
-    // Arrange: Mock useAuth with an undefined user (still loading)
+  // Test 3: TO-DO
+  test("renders protected content if user is authenticated", () => {
+    // Arrange: Mock useAuth to return an authenticated user
     useAuth.mockReturnValue({
-      user: undefined,
-      isLoggingIn: true,
+      user: { name: "Test User" }, // Simulate logged-in user
+      isLoggingIn: false,
     });
 
     // Act: Render the ProtectedRoute component
@@ -82,7 +81,8 @@ describe("ProtectedRoute Component", () => {
       </MemoryRouter>
     );
 
-    // Assert: Check if the loading message is displayed
-    expect(screen.getByText(/loading.../i)).toBeInTheDocument();
+    // Assert: The protected content should be visible
+    const protectedContent = screen.getByText(/protected content/i);
+    expect(protectedContent).toBeInTheDocument();
   });
 });
