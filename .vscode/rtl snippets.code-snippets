@@ -1,0 +1,107 @@
+{
+  "Jest Test Template": {
+    "prefix": "test",
+    "body": [
+      "// Test: $1",
+      "test('$1', async () => {",
+      "  // 1. Render the $2 component",
+      "  render(<$2 />);",
+      "",
+      "  // 2. Query the DOM for the element with text \"$3\"",
+      "  const $4Element = screen.getByText(/$3/i);",
+      "",
+      "  // 3. Assert that the element is in the document",
+      "  expect($4Element).toBeInTheDocument();",
+      "});"
+    ],
+    "description": "Quick Jest test template"
+  },
+
+  "Render Component": {
+    "prefix": "render",
+    "body": ["// 1. Render the $1 component", "render(<$1 />);"],
+    "description": "Render a React component for testing"
+  },
+
+  "Query DOM by Text": {
+    "prefix": "query",
+    "body": [
+      "// 2. Query the DOM for the element with text \"$2\"",
+      "const $1Element = screen.getByText(/$2/i);"
+    ],
+    "description": "Query the DOM for an element by text"
+  },
+
+  "FireEvent Click": {
+    "prefix": "interact_f",
+    "body": ["// Interact by clicking the $1 element", "fireEvent.click($1);"],
+    "description": "Simulate a click event using fireEvent"
+  },
+
+  "UserEvent Click": {
+    "prefix": "interact_u",
+    "body": [
+      "// Interact asynchronously by clicking the $1 element",
+      "await userEvent.click($1);"
+    ],
+    "description": "Simulate a click event using userEvent"
+  },
+
+  "Assert Element in Document": {
+    "prefix": "assert",
+    "body": [
+      "// Check if the $1 element is in the document",
+      "expect($1).toBeInTheDocument();"
+    ],
+    "description": "Assert that an element is in the document"
+  },
+
+  "Assert Multiple Elements in Document": {
+    "prefix": "assert_multi",
+    "body": [
+      "// Check if the $1 element is in the document",
+      "expect($1).toBeInTheDocument();",
+      "",
+      "// Check if the $2 element is in the document",
+      "expect($2).toBeInTheDocument();"
+    ],
+    "description": "Assert multiple elements are in the document"
+  },
+
+  "Mock useAuth Hook": {
+    "prefix": "mock_auth",
+    "body": [
+      "// Arrange: Mock useAuth to return a simulated user",
+      "useAuth.mockReturnValue({",
+      "  user: { name: \"$1\" }, // Simulated logged-in user",
+      "  isLoggingIn: false,",
+      "});"
+    ],
+    "description": "Mock the useAuth hook for authentication-dependent tests"
+  },
+
+  "Render Protected Route": {
+    "prefix": "render_protected",
+    "body": [
+      "// Act: Render the ProtectedRoute component within a MemoryRouter",
+      "render(",
+      "  <MemoryRouter>",
+      "    <ProtectedRoute>",
+      "      <h1>$1</h1> {/* Content inside protected route */}",
+      "    </ProtectedRoute>",
+      "  </MemoryRouter>",
+      ");"
+    ],
+    "description": "Render a ProtectedRoute component in a test"
+  },
+
+  "Assert Protected Content Visibility": {
+    "prefix": "assert_protected",
+    "body": [
+      "// Assert: The protected content should be visible",
+      "const $1Element = screen.getByText(/$2/i); // Find protected content",
+      "expect($1Element).toBeInTheDocument();"
+    ],
+    "description": "Assert that protected content is visible in the document"
+  }
+}

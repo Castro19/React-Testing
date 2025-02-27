@@ -38,22 +38,25 @@ describe("HomePage Component", () => {
      * Answer: Because we want to test the HomePage component in isolation And since we're using useNavigate, which can only only works inside a React Router provider, we need to wrap HomePage in a router during testing
      */
     render(
-      // <MemoryRouter>
-      <HomePage />
-      // </MemoryRouter>
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
     );
 
-    // 2. Query the DOM
-    // Find the title and login button in the DOM using getByText
-    const titleElement = screen.getByText(/homepage/i); // Find the element with text "HomePage"
-    const buttonElement = screen.getByText(/login/i); // Find the button with text "Login"
+    // 2. Query the DOM for the element with text "homepage"
+    const titleElement = screen.getByText("HomePage");
+    // 2. Query the DOM for the element with text "login"
+    const buttonElement = screen.getByText(/login/i);
 
-    // 3. Interact with the DOM (Simulate a user clicking the login button)
+    // 3. Interact
+    // Interact by clicking the buttonElement element
     fireEvent.click(buttonElement);
 
-    // 4. Assert: Check if the elements are in the document
-    expect(titleElement).toBeInTheDocument(); // Ensure the title is present
-    expect(buttonElement).toBeInTheDocument(); // Ensure the button is present
+    // 4. assert
+    // Check if the titleElement element is in the document
+    expect(titleElement).toBeInTheDocument();
+    // Check if the buttonElement element is in the document
+    expect(buttonElement).toBeInTheDocument();
   });
   test("navigates to the login page when Login button is clicked", async () => {
     // Arrange:

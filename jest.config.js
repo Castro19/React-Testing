@@ -5,7 +5,7 @@ const config = {
     "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
   },
   moduleNameMapper: {
-    "\\.(css|scss)$": "identity-obj-proxy",
+    "\\.(css|scss)$": "identity-obj-proxy", // This is used to mock CSS modules
   },
   testMatch: ["**/__tests__/**/*.test.[jt]s?(x)"],
   // Keep your existing config below
