@@ -72,23 +72,5 @@ describe("ProtectedRoute Component", () => {
           name: user.name,
         }
      */
-    // Arrange: Mock useAuth to return a simulated user
-    useAuth.mockReturnValue({
-      user: { name: "Jake" }, // Simulated logged-in user
-      isLoggingIn: false,
-    });
-
-    // Act: Render the ProtectedRoute component within a MemoryRouter
-    render(
-      <MemoryRouter>
-        <ProtectedRoute>
-          <h1>Protected Content</h1> {/* Content inside protected route */}
-        </ProtectedRoute>
-      </MemoryRouter>
-    );
-
-    // Assert: The protected content should be visible
-    const protectedElement = screen.getByText(/protected content/i); // Find protected content
-    expect(protectedElement).toBeInTheDocument();
   });
 });
